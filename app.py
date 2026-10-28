@@ -159,7 +159,8 @@ def render_multiple_choice(column, label, help_text):
             options = option_order(column, meta["options"][column])
             if len(options) > 10:
                 query = st.text_input("Search options", key=f"search_{column}",
-                                      type="search", live=True).strip().casefold()
+                                      type="search", live=True,
+                                      label_visibility="collapsed").strip().casefold()
             visible = [value for value in options if query in option_label(value).casefold()]
             if not visible:
                 st.caption("No matching options. Try another search.")
