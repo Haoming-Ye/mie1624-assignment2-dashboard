@@ -27,14 +27,14 @@ CSS = """
 [data-testid="stSidebar"][aria-expanded="false"]{min-width:0!important;max-width:0!important;border-right:0}
 /* The locked desktop sidebar does not need an empty control row. */
 @media(min-width:769px){[data-testid="stSidebarHeader"]{display:none}
-[data-testid="stSidebarUserContent"]{padding-top:24px}}
+[data-testid="stSidebarUserContent"]{padding-top:32px}}
 [data-testid="stSidebar"] .block-container{padding-top:2rem}
 h1{font-weight:600!important;letter-spacing:-1.1px!important;font-size:2.2rem!important}
 h2{font-weight:550!important;letter-spacing:-.4px!important;font-size:1.4rem!important}
 h3{font-weight:550!important;font-size:1.06rem!important}
 button{border-radius:9px!important}
-.brand{font-size:16px;line-height:1.35;font-weight:600;margin:0 0 8px}
-.course{color:#777;font-size:11px;margin:0 0 30px}
+.brand{font-size:20px;line-height:1.3;font-weight:650;letter-spacing:-.3px;margin:0 0 10px}
+.course{color:#666;font-size:12px;line-height:1.6;margin:0 0 34px}
 .breadcrumb{font-size:12px;line-height:1.6;color:#777;padding:0 0 18px;border-bottom:1px solid #e9e9e9;margin-bottom:22px}
 .subtle{font-size:13px;color:#737373;line-height:1.65}
 .eyebrow{font-size:10px;font-weight:600;letter-spacing:1.2px;color:#777;margin:24px 0 12px}
