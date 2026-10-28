@@ -1,0 +1,92 @@
+{
+  "answers": {
+    "Country": "China",
+    "Age": "25-34 years old",
+    "Education": "Master's degree (M.A., M.S., M.Eng., MBA, etc.)",
+    "YearsCode": 6,
+    "Employment": "Student",
+    "Currency": "CAD Canadian dollar",
+    "WorkExp": 2,
+    "EmploymentAddl": "Attending school (full-time);Engaged in paid work (20-29 hours per week)",
+    "LanguagesHaveWorkedWith": "Python;MATLAB;C++",
+    "DatabasesHaveWorkedWith": null,
+    "OrgSize": "20 to 99 employees",
+    "WorkSetting": "In-person",
+    "ICorPM": "Individual contributor",
+    "JobSat": 8,
+    "PurchasePower": "I evaluate, recommend, or shortlist tools;I influence tool choices by giving feedback or requirements",
+    "LearnAI": "Yes, on my own",
+    "AISelect": "General-purpose AI chat tools;AI coding assistants or coding agents",
+    "AITry": "Different teams choose their own tools or models",
+    "AIUse": "AI use is mostly optional and left up to individuals",
+    "LearnAIHow": "Videos (not associated with specific online course or certification)",
+    "ToolCount": 3,
+    "CloudPlatHaveWorkedWith": "Other, please specify",
+    "WebFrameworkHaveWorkedWith": null,
+    "KnowMgmtHaveWorkedWith": "Google Workspace / Google Drive / Google Docs;Microsoft SharePoint",
+    "LearnCodeHow": "School (i.e., university, college, etc);AI codegen tools or AI-enabled apps;Videos (not associated with specific online course or certification)",
+    "RoleFunctions": "Making technical design or architecture decisions;Writing, editing, or generating code;Analyzing data, reports, or business metrics",
+    "KnowledgeQ": "Internal documentation (i.e. Design, product, or planning docs), wiki, or knowledge base",
+    "KnowledgeTime_1": "Important",
+    "TechDropDown": "I used a programming, scripting, or markup language for any reason;I used a development environment (IDE) to write code or interact with agent-assisted developer tools;I used an LLM (large language model);I used a cloud platform or any tools related to cloud technologies;I used a community platform or online public forum to search, comment, post to, or read from for technology-related content;I used a knowledge management platform (such as a wiki)",
+    "AIWorkCurrentlyUse": "Writing documentation, comments, or knowledge base content;Answering straightforward technical questions;Answering complex or ambiguous technical questions;Generating code in a familiar area;Generating code in an unfamiliar area;Analyzing data, logs, metrics, or query results;Debugging, troubleshooting, or refactoring code"
+  },
+  "baseline": [
+    0.13272491345256232,
+    0.16345829420814895,
+    0.38130114933110076,
+    0.21871305009705455,
+    0.08092114382130913,
+    0.018305338856412563,
+    0.003472051746300122,
+    0.00018398845350362457,
+    0.000607888429334859,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0003121816042731357
+  ],
+  "baselineScore": 2.0287648922756425,
+  "best": [
+    0.13272016149445864,
+    0.07719054818222426,
+    0.3007034663694695,
+    0.2518187209483707,
+    0.18993557594296634,
+    0.038367912452770846,
+    0.008154167005203813,
+    0.00026945737238227266,
+    0.0005970177517860142,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.00024297248036762243
+  ],
+  "topThree": [
+    {
+      "Skill or tool": "IBM DB2",
+      "Question group": "Databases",
+      "Training respondents": 145,
+      "Average bucket rank after": 2.4446244701793285,
+      "Increase (bucket positions)": 0.415859577903686
+    },
+    {
+      "Skill or tool": "Databricks SQL",
+      "Question group": "Databases",
+      "Training respondents": 330,
+      "Average bucket rank after": 2.320156098721956,
+      "Increase (bucket positions)": 0.29139120644631333
+    },
+    {
+      "Skill or tool": "Fortran",
+      "Question group": "Languages",
+      "Training respondents": 112,
+      "Average bucket rank after": 2.2442963311352857,
+      "Increase (bucket positions)": 0.2155314388596432
+    }
+  ]
+}

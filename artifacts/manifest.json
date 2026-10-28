@@ -1,0 +1,21 @@
+{
+  "model": "Cumulative-threshold ordinal logistic regression",
+  "penalty": "l1",
+  "C": 0.1,
+  "training_respondents": 10805,
+  "feature_groups": 31,
+  "encoded_columns": 642,
+  "binary_models": 14,
+  "notebook_sha256": "c45680715ca7a049a27830d9fc4a29778c3d15b83f3bda42acb0e328f1a6a2b1",
+  "versions": {
+    "numpy": "2.2.5",
+    "pandas": "2.3.3",
+    "scipy": "1.15.3",
+    "scikit-learn": "1.7.2",
+    "joblib": "1.5.3"
+  },
+  "full_train_and_test_probabilities_match_notebook_at_1e_12": true,
+  "all_train_and_test_class_predictions_match_notebook": true,
+  "example_profile_and_all_three_recommendations_match": true,
+  "raw_respondent_rows_in_artifact": false
+}
