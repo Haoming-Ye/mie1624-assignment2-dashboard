@@ -33,6 +33,11 @@ h1{font-weight:600!important;letter-spacing:-1.1px!important;font-size:2.2rem!im
 h2{font-weight:550!important;letter-spacing:-.4px!important;font-size:1.4rem!important}
 h3{font-weight:550!important;font-size:1.06rem!important}
 button{border-radius:9px!important}
+[class*="st-key-multi_"] [data-testid="stMarkdownContainer"] p{font-size:14px;line-height:1.5;margin:0}
+[class*="st-key-multi_"] [data-testid="stMarkdown"]{min-height:22px}
+[class*="st-key-multi_"] [data-testid="stPopoverButton"]{min-height:40px;background:#f7f7f7;border-color:transparent;text-align:left}
+[class*="st-key-multi_"] [data-testid="stPopoverButton"] div{justify-content:flex-start}
+[class*="st-key-multi_"] [data-testid="stPopoverButton"]>div{width:100%;justify-content:space-between}
 .brand{font-size:20px;line-height:1.3;font-weight:650;letter-spacing:-.3px;margin:0 0 10px}
 .course{color:#666;font-size:12px;line-height:1.6;margin:0 0 34px}
 .breadcrumb{font-size:12px;line-height:1.6;color:#777;padding:0 0 18px;border-bottom:1px solid #e9e9e9;margin-bottom:22px}
@@ -93,17 +98,17 @@ if "blanks_reviewed" not in st.session_state:
     st.session_state.blanks_reviewed = False
 if "profile_source" not in st.session_state:
     st.session_state.profile_source = "custom"
-if st.session_state.get("form_version") != 3:
-    # Preserve canonical answers while removing old free-text widget state.
+if st.session_state.get("form_version") != 4:
+    # Preserve survey answers when the form controls change.
     for key in list(st.session_state):
-        if key.startswith(("answer_", "detail_")) or key in {"custom_answers", "other_details"}:
+        if key.startswith(("answer_", "detail_", "choice_", "search_")) or key in {"custom_answers", "other_details"}:
             del st.session_state[key]
-    st.session_state.form_version = 3
+    st.session_state.form_version = 4
 
 
 def reset_profile(example=False):
     for key in list(st.session_state):
-        if key.startswith(("answer_", "addition_")) or key == "review_blanks":
+        if key.startswith(("answer_", "addition_", "choice_", "search_")) or key == "review_blanks":
             del st.session_state[key]
     if example:
         st.session_state.answers = json.loads((HERE / "example_data.json").read_text(encoding="utf-8"))["answers"]
@@ -126,6 +131,48 @@ def store_answer(column):
         st.session_state.profile_source = "edited_author"
     st.session_state.blanks_reviewed = False
     st.session_state.pop("review_blanks", None)
+
+
+def store_choice(column, option, checkbox_key):
+    # Save the original survey values, regardless of the current search filter.
+    answer = st.session_state.answers[column]
+    selected = set(answer.split(";")) if answer else set()
+    if st.session_state[checkbox_key]:
+        selected.add(option)
+    else:
+        selected.discard(option)
+    st.session_state[f"answer_{column}"] = [
+        value for value in option_order(column, meta["options"][column]) if value in selected]
+    store_answer(column)
+
+
+def render_multiple_choice(column, label, help_text):
+    selected = st.session_state[f"answer_{column}"]
+    summary = ", ".join(option_label(value) for value in selected) if selected else "Select all that apply"
+    limit = 5 if column == "KnowledgeQ" else None
+    with st.container(key=f"multi_{column}", gap="xsmall"):
+        st.markdown(label, help=help_text)
+        with st.popover(summary, key=f"options_{column}", width="stretch", wrap=False):
+            st.caption(f"{len(selected)} selected. " + (
+                "Choose up to five." if limit else "Select all that apply."))
+            query = ""
+            options = option_order(column, meta["options"][column])
+            if len(options) > 10:
+                query = st.text_input("Search options", key=f"search_{column}",
+                                      type="search", live=True).strip().casefold()
+            visible = [value for value in options if query in option_label(value).casefold()]
+            if not visible:
+                st.caption("No matching options. Try another search.")
+            # The list scrolls while every option keeps its original order.
+            with st.container(height=280 if len(visible) > 6 else "content",
+                              border=False, gap="xxsmall"):
+                for option in visible:
+                    key = f"choice_{column}_{meta['options'][column].index(option)}"
+                    if key not in st.session_state:
+                        st.session_state[key] = option in selected
+                    st.checkbox(option_label(option), key=key, width="stretch",
+                                disabled=bool(limit and len(selected) >= limit and option not in selected),
+                                on_change=store_choice, args=(column, option, key))
 
 
 def unanswered_questions(answers):
@@ -155,11 +202,7 @@ def render_question(column):
                         step=1, value=None, key=key, placeholder="Enter a whole number",
                         help=help_text, on_change=store_answer, args=(column,))
     elif multiple:
-        st.multiselect(label, options=option_order(column, meta["options"][column]), key=key,
-                       placeholder="Select all that apply", format_func=option_label,
-                       max_selections=5 if column == "KnowledgeQ" else None,
-                       accept_new_options=False, select_all=False,
-                       help=help_text, on_change=store_answer, args=(column,))
+        render_multiple_choice(column, label, help_text)
     else:
         st.selectbox(label, options=option_order(column, meta["options"][column]), key=key,
                      index=None, placeholder="Select an answer", format_func=option_label,
