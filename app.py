@@ -14,7 +14,8 @@ from form_options import OTHER, option_order, option_label
 
 HERE = Path(__file__).resolve().parent
 APP_NAME = "Salary Predictor and Skill Advisor"
-st.set_page_config(page_title=APP_NAME, page_icon="S", layout="wide")
+st.set_page_config(page_title=APP_NAME, page_icon="S", layout="wide",
+                   initial_sidebar_state="locked")
 
 CSS = """
 <style>
@@ -24,19 +25,9 @@ CSS = """
 [data-testid="stSidebar"][aria-expanded="true"]{min-width:230px;max-width:250px}
 /* Let the collapsed sidebar release its space in the page layout. */
 [data-testid="stSidebar"][aria-expanded="false"]{min-width:0!important;max-width:0!important;border-right:0}
-[data-testid="stSidebarHeader"]{justify-content:flex-start}
-[data-testid="stSidebarHeader"] [data-testid="stLogoSpacer"]{display:none}
-[data-testid="stSidebarCollapseButton"]{margin-left:0}
-[data-testid="stSidebar"][aria-expanded="true"] [data-testid="stSidebarCollapseButton"]{visibility:visible!important}
-[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stSidebarCollapseButton"]{visibility:hidden!important}
-[data-testid="stSidebarCollapseButton"] button,
-button[data-testid="stExpandSidebarButton"]{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:112px;height:32px;min-height:32px;padding:4px 8px!important;border:1px solid #e9e9e9!important;background:#fff;color:#555;white-space:nowrap}
-[data-testid="stSidebarCollapseButton"] button::after{content:"Hide menu";font-size:12px;font-weight:500;line-height:1}
-button[data-testid="stExpandSidebarButton"]::after{content:"Show menu";font-size:12px;font-weight:500;line-height:1}
-[data-testid="stSidebarCollapseButton"] button:hover,
-button[data-testid="stExpandSidebarButton"]:hover{background:#f7f7f7;border-color:#c8c8c8!important}
-[data-testid="stSidebarCollapseButton"] button:focus-visible,
-button[data-testid="stExpandSidebarButton"]:focus-visible{outline:2px solid #4472c4;outline-offset:2px}
+/* The locked desktop sidebar does not need an empty control row. */
+@media(min-width:769px){[data-testid="stSidebarHeader"]{display:none}
+[data-testid="stSidebarUserContent"]{padding-top:24px}}
 [data-testid="stSidebar"] .block-container{padding-top:2rem}
 h1{font-weight:600!important;letter-spacing:-1.1px!important;font-size:2.2rem!important}
 h2{font-weight:550!important;letter-spacing:-.4px!important;font-size:1.4rem!important}
